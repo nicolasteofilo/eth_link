@@ -38,6 +38,9 @@ export default [
         {
           max: 1
         }
+      ],
+      'react/prop-types': [
+        'off'
       ]
     },
   },
