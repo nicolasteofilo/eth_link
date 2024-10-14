@@ -1,19 +1,18 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 import { BsInfoCircle } from 'react-icons/bs'
 import { SiEthereum } from 'react-icons/si'
 
 import metamaskLogo from '../../assets/icons/metamask.svg'
 
+import { TransactionContext } from '../../context/TransactionContext'
+
 import { Input } from './Input'
 import { Spinner } from './Spinner'
 
 export const Welcome = () => {
-  const [isLoading, ] = useState(false);
-
-  function connectWallet() {
-    console.log('Connected')
-  }
+  const [isLoading, ] = useState(false)
+  const { connectWallet, currentAccount } = useContext(TransactionContext)
 
   function handleSubmit() {
     console.log('Submited')
@@ -25,8 +24,10 @@ export const Welcome = () => {
         <div className='flex flex-1 justify-start flex-col md:mr-10'>
           <h1 className="font-bold text-3xl sm:text-4xl text-gradient py-1">Envie ETH <br /> para <b>todo o mundo.</b></h1>
           <p className="text-left mt-5 text-white font-light md:w-9/12 ">Explore o mundo das criptomoedas. Transfira agora mesmo ETH entre carteiras!</p>
+          
           <button type="button" onClick={connectWallet} className="font-semibold flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer">
-            Conectar carteira <img src={metamaskLogo} className='w-8 ml-4' />
+            {currentAccount ? 'Carteira conectada' : 'Conectar carteira '}
+          <img src={metamaskLogo} className='w-8 ml-4' />
           </button>
         </div>
 
@@ -42,7 +43,7 @@ export const Welcome = () => {
 
               <div>
                 <p className="text-white font-light text-sm">
-                  xxxxxxxxxxx
+                  {currentAccount}
                 </p>
                 <p className="text-white font-semibold text-md">
                   ETH
